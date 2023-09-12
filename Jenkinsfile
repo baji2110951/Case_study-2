@@ -13,6 +13,13 @@ pipeline{
         sh 'mvn package'
       }
     }
+    stage("build image"){
+      steps{
+        sh 'sudo docker build -t app:latest .'
+        sh 'sudo docker images'
+      }
+    }
+    
   }
 }
     
