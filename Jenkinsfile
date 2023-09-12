@@ -15,8 +15,8 @@ pipeline{
     }
     stage("build image"){
       steps{
-        sh 'sudo docker build -t app:latest .'
-        sh 'sudo docker images'
+        sh 'docker build -t app:latest .'
+        sh 'docker images'
       }
     }
     
