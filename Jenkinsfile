@@ -30,7 +30,7 @@ pipeline{
     }
     stage("containerizing app"){
       steps{
-        sh 'docker run --name myApp -d -p 9090:8080 app'
+        sh 'docker run --name myApp -d -p 9090:8080 baji21109/app'
       }
     }
   }
