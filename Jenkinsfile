@@ -22,6 +22,7 @@ pipeline{
     stage("pushing image to DOCKER_HUB"){
       steps{
         withCredentials([usernamePassword(credentialsId: 'docker-pwd', passwordVariable: 'pwd', usernameVariable: 'user')]) {
+         sh 'docker login -u ${user} -p ${pwd}' 
          sh 'docker push app:latest'
         }
       }
