@@ -21,10 +21,10 @@ pipeline{
     }
     stage("pushing image to DOCKER_HUB"){
       steps{
-        withCredentials([usernamePassword(credentialsId: 'docker-pwd', passwordVariable: 'pwd', usernameVariable: 'user')]) {
-         sh 'docker login -u ${user} -p ${pwd}' 
-         sh 'docker push app:latest'
-        }
+          withCredentials([string(credentialsId: 'docker-pwd', variable: 'docker-creds')]) {
+             sh 'docker login -u baji21109 -p ${doocker-creds}'
+             sh 'docker push myApp:latest'
+          }
       }
     }
     stage("containerizing app"){
