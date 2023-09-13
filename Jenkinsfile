@@ -1,5 +1,8 @@
 pipeline{
   agent any
+  environment{
+    DOCKERHUB_CREDENTIALS = credentials('docker-creds')
+  }
   stages{
     stage("checkout"){
       steps{
@@ -19,10 +22,21 @@ pipeline{
         sh 'docker images'
       }
     }
+    stage("pushing image to DOCKER_HUB"){
+      steps{
+        sh 'echo DOCKERHUB_CREDENTIALS_PSW | docker login -u DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'docker push app:latest'
+      }
+    }
     stage("containerizing app"){
       steps{
         sh 'docker run --name myApp -d -p 9090:8080 app'
       }
+    }
+  }
+  post{
+    always{
+      sh 'docker logout'
     }
   }
 }
