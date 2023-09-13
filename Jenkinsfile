@@ -25,7 +25,7 @@ pipeline{
     stage("pushing image to DOCKER_HUB"){
       steps{
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        sh 'docker push baji21109/myapp:latest'
+        sh 'docker push app:latest'
       }
     }
     stage("containerizing app"){
