@@ -18,14 +18,14 @@ pipeline{
     }
     stage("build image"){
       steps{
-        sh 'docker build -t app:latest .'
+        sh 'docker build -t baji21109/app:latest .'
         sh 'docker images'
       }
     }
     stage("pushing image to DOCKER_HUB"){
       steps{
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        sh 'docker push app:latest'
+        sh 'docker push baji21109/app:latest'
       }
     }
     stage("containerizing app"){
