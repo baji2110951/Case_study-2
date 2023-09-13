@@ -24,9 +24,9 @@ pipeline{
     }
     stage("pushing image to DOCKER_HUB"){
       steps{
-        sh 'echo DOCKERHUB_CREDENTIALS_PWD | docker login -u DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        sh 'docker push app:latest'
-      }
+        withCredentials([usernamePassword(credentialsId: 'docker-pwd', passwordVariable: 'pwd', usernameVariable: 'user')]) {
+         sh 'docker push app:latest'
+        }
     }
     stage("containerizing app"){
       steps{
