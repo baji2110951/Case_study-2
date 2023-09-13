@@ -19,7 +19,11 @@ pipeline{
         sh 'docker images'
       }
     }
-    
+    stage("containerizing app"){
+      steps{
+        sh 'docker run --name myApp -d -p 9090:8080 app'
+      }
+    }
   }
 }
     
