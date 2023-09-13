@@ -1,5 +1,8 @@
 pipeline{
   agent any
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+  }
   stages{
     stage("checkout"){
       steps{
@@ -21,10 +24,8 @@ pipeline{
     }
     stage("pushing image to DOCKER_HUB"){
       steps{
-          withCredentials([string(credentialsId: 'docker-pwd', variable: 'docker-creds')]) {
-             sh 'docker login -u baji21109 -p ${doocker-creds}'
-             sh 'docker push myApp:latest'
-          }
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'docker push baji21109/myapp:latest'
       }
     }
     stage("containerizing app"){
