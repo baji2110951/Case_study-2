@@ -1,8 +1,5 @@
 pipeline{
   agent any
-  environment{
-    DOCKERHUB_CREDENTIALS = credentials('docker-creds')
-  }
   stages{
     stage("checkout"){
       steps{
@@ -27,6 +24,7 @@ pipeline{
         withCredentials([usernamePassword(credentialsId: 'docker-pwd', passwordVariable: 'pwd', usernameVariable: 'user')]) {
          sh 'docker push app:latest'
         }
+      }
     }
     stage("containerizing app"){
       steps{
