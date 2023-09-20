@@ -18,19 +18,19 @@ pipeline{
     }
     stage("build image"){
       steps{
-        sh 'docker build -t baji21109/app:latest .'
+        sh 'docker build -t baji21109/myapp:latest .'
         sh 'docker images'
       }
     }
     stage("pushing image to DOCKER_HUB"){
       steps{
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        sh 'docker push baji21109/app:latest'
+        sh 'docker push baji21109/myapp:latest'
       }
     }
     stage("containerizing app"){
       steps{
-        sh 'docker run --name myApp -d -p 9090:8080 baji21109/app'
+        sh 'docker run --name app -d -p 9090:8080 baji21109/myapp'
       }
     }
   }
